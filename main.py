@@ -55,24 +55,23 @@ class Lnd:
     def get_inactive_channels(self):
         channels = self.list_channels()
         two_weeks = datetime.timedelta(days=14).total_seconds()
-        # return [x for x in channels if int(x['lifetime']) - int(x['uptime']) > two_weeks]
-        return [x for x in channels if int(x['lifetime']) - int(x['uptime']) >= 0]
+        return [x for x in channels if int(x['lifetime']) - int(x['uptime']) > two_weeks]
 
 def pj(_json):
     print(json.dumps(_json, indent=4))
 
 def setup_lnd():
-    # rest_host = getpass("Enter your LND REST host: ")
+    rest_host = getpass("Enter your LND REST host: ")
     # regtest host
-    rest_host = 'https://127.0.0.1:8082'
+    # rest_host = 'https://127.0.0.1:8082'
 
     while not rest_host.startswith("https://"):
         print("Invalid host, must be https://")
         rest_host = getpass("Enter your LND REST host: ")
 
-    # admin_macaroon = getpass("Enter your LND admin macaroon: ")
+    admin_macaroon = getpass("Enter your LND admin macaroon: ")
     # regtest mac
-    admin_macaroon = '0201036c6e6402f801030a10428349ebc1f9f9caacfc61c4682027e31201301a160a0761646472657373120472656164120577726974651a130a04696e666f120472656164120577726974651a170a08696e766f69636573120472656164120577726974651a210a086d616361726f6f6e120867656e6572617465120472656164120577726974651a160a076d657373616765120472656164120577726974651a170a086f6666636861696e120472656164120577726974651a160a076f6e636861696e120472656164120577726974651a140a057065657273120472656164120577726974651a180a067369676e6572120867656e657261746512047265616400000620aba84495ce85eb72c03b61e68fb7bd95fe84609dad72936fe7ba8326b92e844c' 
+    # admin_macaroon = '0201036c6e6402f801030a10428349ebc1f9f9caacfc61c4682027e31201301a160a0761646472657373120472656164120577726974651a130a04696e666f120472656164120577726974651a170a08696e766f69636573120472656164120577726974651a210a086d616361726f6f6e120867656e6572617465120472656164120577726974651a160a076d657373616765120472656164120577726974651a170a086f6666636861696e120472656164120577726974651a160a076f6e636861696e120472656164120577726974651a140a057065657273120472656164120577726974651a180a067369676e6572120867656e657261746512047265616400000620aba84495ce85eb72c03b61e68fb7bd95fe84609dad72936fe7ba8326b92e844c' 
     while not admin_macaroon:
         print("Invalid macaroon")
         admin_macaroon = getpass("Enter your LND admin macaroon: ")
