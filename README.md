@@ -7,4 +7,12 @@
 
 ## Running
 
-`python3 main.py`
+* Install python3   
+  * MacOS: `brew install python3`  
+* Clone, install, and run
+```zsh
+ git clone git@github.com:alexlwn123/channel-closer.git 
+ cd channel-closer
+ python3 -m pip install -r requirements.txt
+ python3 main.py
+```
