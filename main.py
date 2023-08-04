@@ -146,7 +146,9 @@ def main():
     
     # List of channels that have been inactive for two weeks
     cold_channels = LND.get_inactive_channels()
-    cold_channels = ['245191093059585', '231996953526273', '238594023292929'] 
+
+    # For testing
+    # cold_channels = ['245191093059585', '231996953526273', '238594023292929'] 
 
     if len(cold_channels) == 0:
         print('No inactive channels to close!')
