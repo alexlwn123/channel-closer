@@ -93,15 +93,20 @@ class Lnd:
         chan_ids = [x['chan_id'] for x in self.list_channels()]
         # print(chan_ids)
 
+        # Gets the chanIds of each channel that has had its policy updated in the last two weeks 
+        # This includes new channels
         channel_details = [self.get_channel_info(id) for id in chan_ids]
         updated_policy_chans = [details['channel_id'] for details in channel_details if details['last_update'] > self.two_weeks_ago]
 
+        # Gets the incoming chanId of each paid invoice in the last two weeks
         invoices = self.list_invoices()
         invoice_chans = [x['chan_id'] for x in invoices if x['state'] in {'SETTLED', 'ACCEPTED'}]
 
+        # Gets the chanId of the first hop of each payment in the last two weeks
         payments = self.list_payments() 
         payment_chans = [htlc['route']['hops'][0]['chan_id'] for x in payments for htlc in x['htlcs'] if x['status'] == 'SUCCEEDED']
 
+        # Gets the chanIds of each channel that has forwarded a payment in the last two weeks
         forwards = self.list_forwards()
         forward_chans = [chan for x in forwards for chan in [x['chan_id_in'], x['chan_id_out']]]
 
@@ -120,6 +125,7 @@ def setup_lnd():
     rest_host = getpass("Enter your LND REST host: ")
     # regtest host
     # rest_host = 'https://127.0.0.1:8082'
+
     while not rest_host.startswith("https://"):
         print("Invalid host, must be https://")
         rest_host = getpass("Enter your LND REST host: ")
