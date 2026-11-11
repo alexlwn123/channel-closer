@@ -7,7 +7,7 @@
 
 ## Running
 
-* Install python3   
+* Install Python 3.10 or newer   
   * MacOS: `brew install python3`  
 * Clone, install, and run
 ```zsh
